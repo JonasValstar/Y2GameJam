@@ -6,6 +6,8 @@ public class playerShootingScript : MonoBehaviour
     [SerializeField] RangedWeaponScript weapon0;
     [SerializeField] RangedWeaponScript weapon1;
 
+    [SerializeField] GameObject[] testingWeaponPrefabs = new GameObject[4];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,28 @@ public class playerShootingScript : MonoBehaviour
             weapon0.Reload();
         } if (Input.GetKey(KeyCode.E)) {
             weapon1.Reload();
+        }
+
+        //! testing
+        if (Input.GetKey(KeyCode.Z)) {
+            switchWeapon(true, testingWeaponPrefabs[0]);
+        }if (Input.GetKey(KeyCode.X)) {
+            switchWeapon(true, testingWeaponPrefabs[1]);
+        }if (Input.GetKey(KeyCode.C)) {
+            switchWeapon(true, testingWeaponPrefabs[2]);
+        }if (Input.GetKey(KeyCode.V)) {
+            switchWeapon(true, testingWeaponPrefabs[3]);
+        }
+        
+    }
+
+    void switchWeapon(bool left, GameObject weapon)
+    {
+        if (left) {
+            GameObject newWeapon = Instantiate(weapon, transform);
+            newWeapon.transform.position = weapon0.transform.position;
+            Destroy(weapon0.gameObject);
+            weapon0 = newWeapon.GetComponent<RangedWeaponScript>();
         }
     }
 }
