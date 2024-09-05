@@ -396,7 +396,7 @@ public class MechMovement : MonoBehaviour
     {
         if (collider.gameObject == CompareTag("Chomper"))
         {
-            //EnemyBase.TakeDamage(1);
+            collider.GetComponent<PlayerHealth>().TakeDamage(10);
         }
     }
 }

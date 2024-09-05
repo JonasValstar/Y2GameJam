@@ -10,6 +10,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] statsBase baseStats;
     [SerializeField] statsResist resistStats;
     [SerializeField] private GameObject deathEffect;
+    public static event Action OnEnemyKilled;
 
     void Update()
     {
@@ -38,6 +39,7 @@ public class EnemyBase : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        OnEnemyKilled?.Invoke();
         Destroy(gameObject);
     }
 

@@ -8,7 +8,7 @@ public class SpitProjectile : MonoBehaviour
     {
         if (collision.gameObject == CompareTag("Player"))
         {
-            //collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (collision.gameObject.layer != LayerMask.NameToLayer("Enemy"))
