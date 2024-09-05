@@ -8,24 +8,35 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] statsBase baseStats;
     [SerializeField] statsResist resistStats;
 
+    void Update()
+    {
+        if (baseStats.health <= 0) {
+            Destroy(gameObject);
+        }
+    }
+
     // taking damage
     public void TakeDamage(RangedWeaponScript.statsDamage damageStats) {
 
         // variables
-        int damage = damageStats.basic;
+        float damage = damageStats.basic * Random.Range(0.9f, 1.1f);
         bool wasCrit = false;
         string element = "basic";
+        float randMult = Random.Range(0.9f, 1.1f);
 
         // calculating damage
-        if (resistStats.fire == resistType.noEffect) { damage += damageStats.fire; element = "fire"; } else if (resistStats.fire == resistType.Weakness) { damage += damageStats.fire*2; element = "fire"; }
-        if (resistStats.acid == resistType.noEffect) { damage += damageStats.acid; element = "acid"; } else if (resistStats.acid == resistType.Weakness) { damage += damageStats.acid*2; element = "acid"; }
-        if (resistStats.shock == resistType.noEffect) { damage += damageStats.shock; element = "shock"; } else if (resistStats.shock == resistType.Weakness) { damage += damageStats.shock*2; element = "shock"; }
-        if (resistStats.blast == resistType.noEffect) { damage += damageStats.blast; element = "blast"; } else if (resistStats.blast == resistType.Weakness) { damage += damageStats.blast*2; element = "blast"; }
-        if (Random.Range(0, 101) < baseStats.critChance) { damage = Mathf.RoundToInt(damage * 1.5f); wasCrit = true; }
-        baseStats.health -= damage;
+        if (damageStats.fire > 0) { if (resistStats.fire == resistType.noEffect) { damage += damageStats.fire * randMult; element = "fire"; } else if (resistStats.fire == resistType.Weakness) { damage += damageStats.fire * 2 * randMult; element = "fire"; }}
+        if (damageStats.acid > 0) { if (resistStats.acid == resistType.noEffect) { damage += damageStats.acid * randMult; element = "acid"; } else if (resistStats.acid == resistType.Weakness) { damage += damageStats.acid * 2 * randMult; element = "acid"; }}
+        if (damageStats.shock > 0) { if (resistStats.shock == resistType.noEffect) { damage += damageStats.shock * randMult; element = "shock"; } else if (resistStats.shock == resistType.Weakness) { damage += damageStats.shock * 2 * randMult; element = "shock"; }}
+        if (damageStats.blast > 0) { if (resistStats.blast == resistType.noEffect) { damage += damageStats.blast * randMult; element = "blast"; } else if (resistStats.blast == resistType.Weakness) { damage += damageStats.blast * 2 * randMult; element = "blast"; }}
+        if (Random.Range(0, 101) < baseStats.critChance) { damage *= 1.5f; wasCrit = true; }
+        
+        baseStats.health -= (int)damage;
+
+        Debug.Log(element);
 
         // displaying popup
-        Camera.main.GetComponent<MainScript>().DamagePopup(damage, wasCrit, element, transform);
+        Camera.main.GetComponent<MainScript>().DamagePopup((int)damage, wasCrit, element, transform);
     }
 
     /* --- Structs --- */

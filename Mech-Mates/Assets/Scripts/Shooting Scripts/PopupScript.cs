@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PopupScript : MonoBehaviour
@@ -18,9 +16,15 @@ public class PopupScript : MonoBehaviour
     void Update()
     {
         rect.Translate(0, Screen.height/10 * Time.deltaTime, 0);
+        
         aliveTime += Time.deltaTime;
         if (aliveTime >= 2) { 
             Destroy(gameObject); 
         }
+    }
+
+    void FixedUpdate()
+    {
+        rect.localScale *= 0.99f;
     }
 }

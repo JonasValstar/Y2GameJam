@@ -6,8 +6,9 @@ public class RangedWeaponScript : MonoBehaviour
     /* --- variables --- */
 
     // firing variables
-    int ammo;
     float currentDelay = 0;
+    int currentAmmo;
+    MainScript ms;
 
     // stats
     [SerializeField] statsBase baseStats;
@@ -19,36 +20,57 @@ public class RangedWeaponScript : MonoBehaviour
 
     /* --- functions --- */
 
-    // Update is called once per frame
-    void Update()
-    {
-        //! move into player script at some point
-        // checking if gun can fire
-        if (currentDelay <= 0) {
-            // firing a bullet if needed
-            if (Input.GetKey(KeyCode.Mouse0)) {
-                FireBullet();
-            }
-            
-            // setting the delay
-            currentDelay = baseStats.fireDelay;
-        } else {
-            currentDelay -= Time.deltaTime;
-        }
+    void Start() 
+    { 
+        // setting the ammo to max
+        currentAmmo = baseStats.maxAmmo; 
+        ms = Camera.main.GetComponent<MainScript>();
+
     }
 
     // firing a bullet
-    void FireBullet()
+    public bool FireBullet(bool left)
     {
-        // making the bullet
-        GameObject newBullet = Instantiate(bulletPrefab);
-        BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
-        newBullet.transform.position = firePoint.position;
-        newBullet.name = "bullet";
+        if (currentAmmo > 0) {
+            if (currentDelay < 0) {
+                // making the bullet
+                GameObject newBullet = Instantiate(bulletPrefab);
+                BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
+                newBullet.transform.position = firePoint.position;
+                newBullet.name = "bullet";
 
-        // setting the stats
-        bulletScript.speed = baseStats.bulletSpeed;
-        bulletScript.damageStats = damageStats;
+                // setting the stats
+                bulletScript.speed = baseStats.bulletSpeed;
+                bulletScript.damageStats = damageStats;
+
+                // updating ui
+                ms.UpdateAmmo(left, currentAmmo);
+
+                // reapplying the delay
+                currentDelay = baseStats.fireDelay;
+
+                // consuming ammo
+                currentAmmo--;
+            } else {
+                // decreasing current wait time
+                currentDelay -= Time.deltaTime;
+            }
+
+            // returning ammo is not empty
+            return false;
+        } else {
+            // updating ui
+            ms.UpdateAmmo(left, 0);
+
+            // returning that ammo is empty
+            return true;
+            
+        }
+    }
+
+    public void Reload()
+    {
+        currentAmmo = baseStats.maxAmmo;
     }
 
     /* --- Structs --- */
