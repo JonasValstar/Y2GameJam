@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     // variables
     [HideInInspector] public float speed;
-    public RangedWeapon.statsDamage damageStats;
+    [HideInInspector] public RangedWeapon.statsDamage damageStats;
 
     // moving the bullet
     void Update()

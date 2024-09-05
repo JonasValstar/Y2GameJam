@@ -27,11 +27,11 @@ public class PlayerShooting : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-            weapon0.Reload();
+            weapon0.Reload(true);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            weapon1.Reload();
+            weapon1.Reload(false);
         }
 
         //! testing

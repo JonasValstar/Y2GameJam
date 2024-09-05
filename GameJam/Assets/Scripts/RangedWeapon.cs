@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class RangedWeapon : MonoBehaviour
@@ -9,6 +10,7 @@ public class RangedWeapon : MonoBehaviour
     float currentDelay = 0;
     int currentAmmo;
     MainScript ms;
+    bool reloading = false;
 
     // stats
     [SerializeField] statsBase baseStats;
@@ -25,16 +27,13 @@ public class RangedWeapon : MonoBehaviour
         // setting the ammo to max
         currentAmmo = baseStats.maxAmmo;
         ms = Camera.main.GetComponent<MainScript>();
-
     }
 
     // firing a bullet
     public bool FireBullet(bool left)
     {
-        if (currentAmmo > 0)
-        {
-            if (currentDelay < 0)
-            {
+        if (currentAmmo > 0) {
+            if (currentDelay < 0) {
                 // making the bullet
                 GameObject newBullet = Instantiate(bulletPrefab);
                 Bullet bulletScript = newBullet.GetComponent<Bullet>();
@@ -47,37 +46,49 @@ public class RangedWeapon : MonoBehaviour
                 bulletScript.damageStats = damageStats;
 
                 // updating ui
-                ms.UpdateAmmo(left, currentAmmo);
+                ms.UpdateAmmo(left, currentAmmo.ToString());
 
                 // reapplying the delay
                 currentDelay = baseStats.fireDelay;
 
                 // consuming ammo
                 currentAmmo--;
-            }
-            else
-            {
+            } else {
                 // decreasing current wait time
                 currentDelay -= Time.deltaTime;
             }
 
             // returning ammo is not empty
             return false;
-        }
-        else
-        {
+        } else {
             // updating ui
-            ms.UpdateAmmo(left, 0);
-
+            if (!reloading) {ms.UpdateAmmo(left, "0"); }
+ 
             // returning that ammo is empty
             return true;
-
         }
     }
 
-    public void Reload()
+    public void Reload(bool left)
     {
+        if (!reloading) {
+            StartCoroutine(ReloadWait(left));
+        }
+        
+    }
+
+    IEnumerator ReloadWait(bool left)
+    {
+        reloading = true;
+        ms.UpdateAmmo(left, "REL...");
+        for(int i = 0; i < 10; i++) {
+            yield return new WaitForSeconds(0.5f);
+            if (i % 2 == 0) { ms.UpdateAmmo(left, "REL.."); }
+            else { ms.UpdateAmmo(left, "REL..."); }
+        }
         currentAmmo = baseStats.maxAmmo;
+        ms.UpdateAmmo(left, currentAmmo.ToString());
+        reloading = false;
     }
 
     /* --- Structs --- */
@@ -86,6 +97,7 @@ public class RangedWeapon : MonoBehaviour
     [Serializable]
     struct statsBase
     {
+        public string name;
         public int maxAmmo;
         public float fireDelay;
         public float bulletSpeed;
