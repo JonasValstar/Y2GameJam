@@ -44,6 +44,7 @@ public class RangedWeaponScript : MonoBehaviour
         GameObject newBullet = Instantiate(bulletPrefab);
         BulletScript bulletScript = newBullet.GetComponent<BulletScript>();
         newBullet.transform.position = firePoint.position;
+        newBullet.name = "bullet";
 
         // setting the stats
         bulletScript.speed = baseStats.bulletSpeed;

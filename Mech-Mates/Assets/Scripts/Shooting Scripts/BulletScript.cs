@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
@@ -11,5 +12,16 @@ public class BulletScript : MonoBehaviour
     // moving the bullet
     void Update() { 
         transform.Translate(speed * Time.deltaTime, 0, 0); 
+    }
+
+    // colliding with something
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy") {
+            other.GetComponent<EnemyBase>().TakeDamage(damageStats);
+            Destroy(gameObject);
+        } else {
+            Destroy(gameObject);
+        }
     }
 }
