@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class EnemyBase : MonoBehaviour
@@ -7,13 +9,36 @@ public class EnemyBase : MonoBehaviour
     // stats
     [SerializeField] statsBase baseStats;
     [SerializeField] statsResist resistStats;
+    [SerializeField] private GameObject deathEffect;
 
     void Update()
     {
         if (baseStats.health <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(OnDeath());
         }
+    }
+    private IEnumerator OnDeath()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
+        agent.height = .5f;
+
+        GameObject instantiatedObject;
+        if (gameObject.CompareTag("Spitter"))
+        {
+            instantiatedObject = Instantiate(deathEffect, new Vector3(transform.position.x, transform.position.y + 2.8f, transform.position.z), Quaternion.identity);
+        }
+        else
+        {
+            instantiatedObject = Instantiate(deathEffect, transform.position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        Destroy(gameObject);
     }
 
     // taking damage

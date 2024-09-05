@@ -11,15 +11,13 @@ public class ChomperBehaviour : MonoBehaviour
     private GameObject enemyTarget;
     public Rigidbody rb;
     public NavMeshAgent agent;
-    public GameObject floatingText;
     public AudioSource enemyAudioHurt;
     public LayerMask whatIsGround, whatIsTarget;
+    public GameObject deathEffect;
 
     [Header("Variables")]
     public float m_MaxHealth;
     public float m_CurrentHealth;
-    public bool m_IsDead = false;
-    //private bool m_IsStunned;
 
     [SerializeField] private float m_ChaseSpeed;
 
@@ -52,19 +50,11 @@ public class ChomperBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!m_IsDead)
-        {
-            //Check for attack range
-            targetInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsTarget);
+        //Check for attack range
+        targetInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsTarget);
 
-            if (!targetInAttackRange) ChaseTarget();
-            if (targetInAttackRange) AttackTarget();
-        }
-
-        if (m_IsDead)
-        {
-
-        }
+        if (!targetInAttackRange) ChaseTarget();
+        if (targetInAttackRange) AttackTarget();
     }
 
     #region STATE FUNCTIONS
@@ -110,39 +100,6 @@ public class ChomperBehaviour : MonoBehaviour
             agent.SetDestination(destination);
         }
     }
-    #endregion
-
-    #region HEALTH & DMG FUNCTIONS
-    public void TakeDamage(int damage)
-    {
-        Debug.Log($"TakeDamage called with {damage} damage.");
-        if (damage <= 0) return;
-
-        m_CurrentHealth -= damage;
-
-        //Play hurt sound effect
-        enemyAudioHurt.Play();
-
-        //Trigger floating text
-        if (floatingText && m_CurrentHealth > 0)
-            ShowFloatingText($"{damage}");
-
-        if (m_CurrentHealth <= 0)
-        {
-            m_IsDead = true;
-        }
-    }
-    private void DestroyEnemy()
-    {
-        Destroy(gameObject);
-    }
-    private void ShowFloatingText(string textToShow)
-    {
-        //Can be optimized by Object Pooling
-        var go = Instantiate(floatingText, transform.position, Quaternion.identity, transform);
-        go.GetComponent<TextMeshPro>().text = textToShow;
-    }
-
     #endregion
 
     #region GIZMOS

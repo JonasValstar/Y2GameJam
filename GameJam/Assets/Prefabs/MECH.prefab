@@ -536,6 +536,8 @@ GameObject:
   - component: {fileID: 2855229821625928802}
   - component: {fileID: 7793635221312300954}
   - component: {fileID: 2454211582469335761}
+  - component: {fileID: 1220336665844385275}
+  - component: {fileID: 7181765165977185437}
   m_Layer: 6
   m_Name: MECH
   m_TagString: Player
@@ -579,7 +581,7 @@ MonoBehaviour:
   speedIncreaseMultiplier: 1
   slopeIncreaseMultiplier: 1
   groundDrag: 0.1
-  jumpForce: 4
+  jumpForce: 10
   jumpCooldown: 1
   airMultiplier: 2
   crouchSpeed: 5
@@ -625,6 +627,46 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 2
+--- !u!114 &1220336665844385275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282397866508843645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b73f1fe5d9b37e4196967e5af937d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon0: {fileID: 0}
+  weapon1: {fileID: 0}
+  testingWeaponPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!65 &7181765165977185437
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282397866508843645}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4.5, z: 2}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &4671549186365121676
 GameObject:
   m_ObjectHideFlags: 0

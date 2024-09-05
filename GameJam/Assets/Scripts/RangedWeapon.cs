@@ -18,6 +18,7 @@ public class RangedWeapon : MonoBehaviour
 
     // components
     [SerializeField] Transform firePoint;
+    [HideInInspector] public float shootForce;
     [SerializeField] GameObject bulletPrefab;
 
     /* --- functions --- */
@@ -35,15 +36,16 @@ public class RangedWeapon : MonoBehaviour
         if (currentAmmo > 0) {
             if (currentDelay < 0) {
                 // making the bullet
-                GameObject newBullet = Instantiate(bulletPrefab);
+                GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
                 Bullet bulletScript = newBullet.GetComponent<Bullet>();
-                newBullet.transform.position = firePoint.position;
-                newBullet.transform.rotation = firePoint.rotation;
                 newBullet.name = "bullet";
 
                 // setting the stats
-                bulletScript.speed = baseStats.bulletSpeed;
+                shootForce = baseStats.bulletSpeed;
                 bulletScript.damageStats = damageStats;
+
+                //Shoot the bullet
+                newBullet.GetComponent<Rigidbody>().AddForce(firePoint.forward * shootForce, ForceMode.Impulse);
 
                 // updating ui
                 ms.UpdateAmmo(left, currentAmmo.ToString());
