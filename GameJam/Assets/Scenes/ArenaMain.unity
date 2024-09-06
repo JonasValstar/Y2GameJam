@@ -629,7 +629,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -6586,7 +6586,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 69a600934cad07b49b9ac95a54b31871,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 41.65853
+      value: 41.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69a600934cad07b49b9ac95a54b31871,
         type: 3}
@@ -6596,7 +6596,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 69a600934cad07b49b9ac95a54b31871,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.094117
+      value: -10.16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 69a600934cad07b49b9ac95a54b31871,
         type: 3}
@@ -12358,7 +12358,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -13681,7 +13681,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
