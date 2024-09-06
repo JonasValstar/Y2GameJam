@@ -22,6 +22,8 @@ public class MechMovement : MonoBehaviour
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
 
+    [SerializeField] Animator animator;
+
     public float groundDrag;
 
     [Header("Jumping")]
@@ -287,8 +289,15 @@ public class MechMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if (verticalInput > 0 || horizontalInput > 0) {
+            animator.SetBool("Walk", true);
+        } else {
+            animator.SetBool("Walk", false);
+        }
 
         //on slope
         if (OnSlope() && !m_ExitingSlope)
