@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerShooting : MonoBehaviour
 {
     // variables
     [SerializeField] RangedWeapon weapon0;
     [SerializeField] RangedWeapon weapon1;
+    [SerializeField] Transform weaponContainer;
 
     [SerializeField] GameObject[] testingWeaponPrefabs = new GameObject[4];
 
@@ -54,14 +56,25 @@ public class PlayerShooting : MonoBehaviour
 
     }
 
-    void switchWeapon(bool left, GameObject weapon)
+    public void switchWeapon(bool left, GameObject weapon)
     {
         if (left)
         {
-            GameObject newWeapon = Instantiate(weapon, transform);
+            GameObject newWeapon = Instantiate(weapon, weaponContainer);
             newWeapon.transform.position = weapon0.transform.position;
+            newWeapon.transform.rotation = weapon0.transform.rotation;
+            newWeapon.transform.localScale = weapon0.transform.localScale;
             Destroy(weapon0.gameObject);
             weapon0 = newWeapon.GetComponent<RangedWeapon>();
+        } else {
+            GameObject newWeapon = Instantiate(weapon, weaponContainer);
+            newWeapon.transform.position = weapon1.transform.position;
+            newWeapon.transform.rotation = weapon1.transform.rotation;
+            newWeapon.transform.localScale = weapon1.transform.localScale;
+            Destroy(weapon1.gameObject);
+            weapon1 = newWeapon.GetComponent<RangedWeapon>();
         }
+
+        Camera.main.GetComponent<MainScript>().UpdateAmmo(left, weapon.GetComponent<RangedWeapon>().baseStats.maxAmmo.ToString());
     }
 }

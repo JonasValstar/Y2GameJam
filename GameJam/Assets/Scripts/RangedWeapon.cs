@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RangedWeapon : MonoBehaviour
 {
@@ -13,13 +14,15 @@ public class RangedWeapon : MonoBehaviour
     bool reloading = false;
 
     // stats
-    [SerializeField] statsBase baseStats;
-    [SerializeField] statsDamage damageStats;
+    public statsBase baseStats;
+    public statsDamage damageStats;
 
     // components
     [SerializeField] Transform firePoint;
     [HideInInspector] public float shootForce;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] AudioClip[] shootSounds = new AudioClip[4];
+    [SerializeField] AudioClip reloadSound;
 
     /* --- functions --- */
 
@@ -55,6 +58,10 @@ public class RangedWeapon : MonoBehaviour
 
                 // consuming ammo
                 currentAmmo--;
+
+                // playing sound
+                GetComponent<AudioSource>().clip = shootSounds[Random.Range(0, 4)];
+                GetComponent<AudioSource>().Play();
             } else {
                 // decreasing current wait time
                 currentDelay -= Time.deltaTime;
@@ -74,6 +81,9 @@ public class RangedWeapon : MonoBehaviour
     public void Reload(bool left)
     {
         if (!reloading) {
+            currentAmmo = 0;
+            GetComponent<AudioSource>().clip = reloadSound;
+            GetComponent<AudioSource>().Play();
             StartCoroutine(ReloadWait(left));
         }
         
@@ -97,7 +107,7 @@ public class RangedWeapon : MonoBehaviour
 
     // struct containing the basic stats
     [Serializable]
-    struct statsBase
+    public struct statsBase
     {
         public string name;
         public int maxAmmo;

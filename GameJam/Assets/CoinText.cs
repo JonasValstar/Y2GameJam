@@ -9,6 +9,12 @@ public class CoinText : MonoBehaviour
 
     public void IncrementCoinCount(int coinTotal)
     {
-        coinText.text = $"Coins: {coinTotal}";
+        coinText.text = $"{coinTotal}";
+        PlayerPrefs.SetInt("LastScore", coinTotal);
+    }
+
+    void Start()
+    {
+        IncrementCoinCount(0);
     }
 }

@@ -60,6 +60,10 @@ MonoBehaviour:
     ice: 0
   deathEffect: {fileID: 1091566395842728, guid: 400e06051701a8c4998087ae421728e3,
     type: 3}
+  dyingSounds:
+  - {fileID: 8300000, guid: 1d9b8e0db2fd5b74ebd0df101a703d81, type: 3}
+  - {fileID: 8300000, guid: 841021e68297ec54b8fbadcaba272f05, type: 3}
+  - {fileID: 8300000, guid: 9d83fdfb7a75f6c4aa78f995ca9c429c, type: 3}
 --- !u!114 &8121078045143585928
 MonoBehaviour:
   m_ObjectHideFlags: 0

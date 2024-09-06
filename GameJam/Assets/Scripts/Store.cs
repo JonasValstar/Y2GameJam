@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Store : MonoBehaviour
 {
@@ -14,11 +15,15 @@ public class Store : MonoBehaviour
 
     // components
     MainScript ms;
-    [SerializeField] PlayerHealth player;
+    [SerializeField] PlayerShooting player;
+    [SerializeField] GameHandler handler;
     int currentLevel = 0;
+    RangedWeapon[] items = new RangedWeapon[3];
+
 
     // variables
     bool canBuy = false;
+    bool inRange = true;
 
     // Start is called before the first frame update
     void Start()
@@ -37,34 +42,47 @@ public class Store : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canBuy) {
+        if (Input.GetKeyDown(KeyCode.Space) && canBuy && inRange) {
             // getting the items
-            GameObject[] items = new GameObject[3];
             for(int i = 0; i < 3; i++) {
-                int index = Random.Range(0, Mathf.FloorToInt(player.pts/50) + 1);
-                items[i] = storeItems[index][Random.Range(0, storeItems[index].Count)];
+                int index = Random.Range(0, Mathf.Clamp(Mathf.FloorToInt(handler.coinCount/15), 0, 5));
+                items[i] = storeItems[index][Random.Range(0, storeItems[index].Count)].GetComponent<RangedWeapon>();
             }
 
             ms.ToggleStoreUI(true, items);
             canBuy = false;
         }
 
-        if (Mathf.FloorToInt(player.pts/50) > currentLevel) {
+        if (Mathf.FloorToInt(handler.coinCount/15) > currentLevel) {
             canBuy = true;
+            currentLevel++;
+            ms.StartStoreTimer();
         }
+    }
+
+    public void applyPurchase(int option) {
+        if (option == 0) { player.switchWeapon(true, items[0].gameObject); }
+        if (option == 1) { player.switchWeapon(false, items[0].gameObject); }
+        if (option == 2) { player.switchWeapon(true, items[1].gameObject); }
+        if (option == 3) { player.switchWeapon(false, items[1].gameObject); }
+        if (option == 4) { player.switchWeapon(true, items[2].gameObject); }
+        if (option == 5) { player.switchWeapon(false, items[2].gameObject); }
+
+        RangedWeapon[] empty = new RangedWeapon[0];
+        ms.ToggleStoreUI(false, empty);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player") {
-            canBuy = true;
+            inRange = true;
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player") {
-            canBuy = false;
+            inRange = false;
         }
     }
 }

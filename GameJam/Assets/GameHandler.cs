@@ -7,7 +7,7 @@ public class GameHandler : MonoBehaviour
 {
     [SerializeField] CoinText coinText;
     [SerializeField] TextMeshProUGUI highScoreText;
-    int coinCount;
+    /*[HideInInspector]*/ public int coinCount;
     private void OnEnable()
     {
         EnemyBase.OnEnemyKilled += HandleScoreChange;
@@ -42,6 +42,6 @@ public class GameHandler : MonoBehaviour
 
     void UpdateHighScoreText()
     {
-        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+        highScoreText.text = $"{PlayerPrefs.GetInt("HighScore", 0)}";
     }
 }

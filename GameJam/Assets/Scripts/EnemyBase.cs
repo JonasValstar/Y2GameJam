@@ -10,13 +10,17 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] statsBase baseStats;
     [SerializeField] statsResist resistStats;
     [SerializeField] private GameObject deathEffect;
+    [SerializeField] AudioClip[] dyingSounds = new AudioClip[3];
     public static event Action OnEnemyKilled;
+
+    bool dying = false;
 
     void Update()
     {
-        if (baseStats.health <= 0)
+        if (baseStats.health <= 0 && !dying)
         {
             StartCoroutine(OnDeath());
+            dying = true;
         }
     }
     private IEnumerator OnDeath()
@@ -36,6 +40,10 @@ public class EnemyBase : MonoBehaviour
         {
             instantiatedObject = Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
+
+        //play sound
+        Camera.main.GetComponent<AudioSource>().clip = dyingSounds[Random.Range(0, 3)];
+        Camera.main.GetComponent<AudioSource>().Play();
 
         yield return new WaitForSeconds(1f);
 
