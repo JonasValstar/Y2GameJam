@@ -26,7 +26,7 @@ public class RangedWeapon : MonoBehaviour
 
     /* --- functions --- */
 
-    void Start()
+    void Awake()
     {
         // setting the ammo to max
         currentAmmo = baseStats.maxAmmo;
@@ -101,6 +101,11 @@ public class RangedWeapon : MonoBehaviour
         currentAmmo = baseStats.maxAmmo;
         ms.UpdateAmmo(left, currentAmmo.ToString());
         reloading = false;
+    }
+
+    public void startAmmoUI(bool left)
+    {
+        ms.UpdateAmmo(left, currentAmmo.ToString());
     }
 
     /* --- Structs --- */

@@ -19,8 +19,14 @@ public class CombatDirector : MonoBehaviour
     [Header("Spawner Area")]
     [SerializeField] Vector2 levelBounds = Vector2.one;
 
+    [Header("Soundtracks")]
+    [SerializeField] AudioClip[] soundtracks;  // Array to hold soundtracks
+    private AudioSource audioSource;           // AudioSource to play sound
+
     IEnumerator Start()
     {
+        audioSource = GetComponent<AudioSource>(); //Ensure there is a audio source
+
         SpawnPrefabs(10);
         while (true)
         {
@@ -94,5 +100,15 @@ public class CombatDirector : MonoBehaviour
             randomWeight -= spawn.weight;
         }
         return null;
+    }
+
+    void PlayRandomSoundtrack()
+    {
+        if (soundtracks.Length > 0)
+        {
+            int index = Random.Range(0, soundtracks.Length);
+            audioSource.clip = soundtracks[index];
+            audioSource.Play();
+        }
     }
 }

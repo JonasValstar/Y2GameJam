@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 public class MainScript : MonoBehaviour
@@ -20,7 +21,7 @@ public class MainScript : MonoBehaviour
     [SerializeField] TMP_Text TimerText;
     [SerializeField] TMP_Text score;
     [SerializeField] TMP_Text highScore;
-    [HideInInspector] public int time = 260;
+    [HideInInspector] public static int time = 260;
     public int maxTime = 260;
 
     [Header("Store UI")]
@@ -63,8 +64,17 @@ public class MainScript : MonoBehaviour
 
     public void UpdateAmmo(bool left, string ammo)
     {
-        if (left) { ammoText0.text = ammo; }
-        else { ammoText1.text = ammo.ToString(); }
+        if (left) { 
+            if (ammo == "0") { 
+                ammo = " " + "0 [Q]"; 
+            }
+            ammoText0.text = ammo; 
+            } else { 
+            if (ammo == "0") { 
+                ammo = "0 [E]" + " "; 
+            }
+            ammoText1.text = ammo.ToString(); 
+        }
     }
 
     public void ToggleStoreUI(bool on, RangedWeapon[] items)
@@ -115,5 +125,10 @@ public class MainScript : MonoBehaviour
         UpdateTimer();
         StartCoroutine(scoreTimer());
         if (time <= 0) { SceneManager.LoadScene(0);}
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) { SceneManager.LoadScene(0); };
     }
 }

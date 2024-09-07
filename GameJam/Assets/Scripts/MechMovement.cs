@@ -401,15 +401,11 @@ public class MechMovement : MonoBehaviour
         return Vector3.ProjectOnPlane(direction, m_SlopeHit.normal).normalized;
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject == CompareTag("Chomper"))
-        {
-            if (!Camera.main.GetComponent<MainScript>().inStore) {
-                Camera.main.GetComponent<MainScript>().time-=1;
-                Camera.main.GetComponent<MainScript>().UpdateTimer();
-                //collider.GetComponent<PlayerHealth>().TakeDamage(10);
-            }
-        }
-    }
+    //private void OnTriggerEnter(Collider collider)
+    //{
+        //if (collider.gameObject.CompareTag("Chomper"))
+        //{
+        //    collider.GetComponent<PlayerHealth>().TakeDamage(1);
+        //}
+    //}
 }

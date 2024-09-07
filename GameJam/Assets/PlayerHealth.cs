@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int pts;
+    public void TakeDamage(int damage){
+        MainScript.time -= damage;
+    }
 }

@@ -22,7 +22,7 @@ public class UiGlow : MonoBehaviour
             opacity -= Time.deltaTime / mod;
         }
 
-        float hpFraction = (float)ms.time / (float)ms.maxTime;
+        float hpFraction = (float)MainScript.time / (float)ms.maxTime;
         Debug.Log(hpFraction);
         image.color = new Color(Mathf.Clamp( 1 - hpFraction, 0, .5f)*2, Mathf.Clamp(hpFraction, 0, .5f)*2, 0, opacity);
     }

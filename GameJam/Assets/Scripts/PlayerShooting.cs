@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -54,6 +55,11 @@ public class PlayerShooting : MonoBehaviour
             switchWeapon(true, testingWeaponPrefabs[3]);
         }
 
+    }
+
+    void Start() {
+        weapon0.startAmmoUI(true);
+        weapon1.startAmmoUI(false);
     }
 
     public void switchWeapon(bool left, GameObject weapon)

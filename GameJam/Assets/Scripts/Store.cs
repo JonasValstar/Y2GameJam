@@ -23,7 +23,6 @@ public class Store : MonoBehaviour
 
     // variables
     bool canBuy = false;
-    bool inRange = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +41,7 @@ public class Store : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canBuy && inRange) {
+        if (Input.GetKeyDown(KeyCode.Space) && canBuy) {
             // getting the items
             for(int i = 0; i < 3; i++) {
                 int index = Random.Range(0, Mathf.Clamp(Mathf.FloorToInt(handler.coinCount/15), 0, 5));
@@ -70,19 +69,5 @@ public class Store : MonoBehaviour
 
         RangedWeapon[] empty = new RangedWeapon[0];
         ms.ToggleStoreUI(false, empty);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player") {
-            inRange = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player") {
-            inRange = false;
-        }
     }
 }
