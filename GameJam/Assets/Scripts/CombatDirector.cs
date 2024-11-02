@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Gamekit3D;
 
 [System.Serializable]
 public class Spawn
@@ -30,7 +28,7 @@ public class CombatDirector : MonoBehaviour
         SpawnPrefabs(10);
         while (true)
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(2.5f);
             SpawnPrefab();
         }
     }
@@ -55,6 +53,7 @@ public class CombatDirector : MonoBehaviour
             if (spawn != null)
             {
                 GameObject enemy = Instantiate(spawn.prefab, point, Quaternion.identity, transform);
+                PlayRandomSoundtrack();
                 //EnemyBase damageable = enemy.GetComponent<EnemyController>();
                 //damageable.maxHitPoints = Mathf.RoundToInt(level);
                 //damageable.ResetDamage();

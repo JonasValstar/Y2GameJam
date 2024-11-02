@@ -76,25 +76,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2239efc3d1d8945bda1a528a7fd707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ST_Player: {fileID: 11400000, guid: 114cbd4b8ebde324092ad63d3d7faf34, type: 2}
   rb: {fileID: 5626440227380581912}
-  agent: {fileID: 8612946014010002293}
   enemyAudioHurt: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  whatIsTarget:
-    serializedVersion: 2
-    m_Bits: 64
   deathEffect: {fileID: 1091566395842728, guid: 400e06051701a8c4998087ae421728e3,
     type: 3}
   m_MaxHealth: 50
   m_CurrentHealth: 50
-  m_ChaseSpeed: 8
-  timeBetweenAttacks: 1
-  chompAttack: {fileID: 5659214103471305410}
+  m_ChaseSpeed: 4
+  dmg: 1
+  timeBetweenAttacks: 1.5
   state: 0
   attackRange: 1.5
   targetInAttackRange: 0
+  chompAttack: {fileID: 5659214103471305410}
 --- !u!195 &8612946014010002293
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -114,7 +109,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 0.4
-  m_BaseOffset: 0.1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &5626440227380581912
@@ -141,7 +136,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!65 &702635708440005415

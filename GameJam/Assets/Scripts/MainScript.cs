@@ -21,8 +21,8 @@ public class MainScript : MonoBehaviour
     [SerializeField] TMP_Text TimerText;
     [SerializeField] TMP_Text score;
     [SerializeField] TMP_Text highScore;
-    [HideInInspector] public static int time = 260;
-    public int maxTime = 260;
+    [HideInInspector] public int time = 600;
+    public int maxTime = 600;
 
     [Header("Store UI")]
     [SerializeField] GameObject StoreOpenText;
@@ -44,6 +44,8 @@ public class MainScript : MonoBehaviour
         StartCoroutine(scoreTimer());
 
         StoreOpenText.SetActive(false);
+
+        EventManager.AddListener<PlayerHitEvent>(DecreaseScoreTimer);
     }
 
     // display the amount of damage
@@ -64,16 +66,21 @@ public class MainScript : MonoBehaviour
 
     public void UpdateAmmo(bool left, string ammo)
     {
-        if (left) { 
-            if (ammo == "0") { 
-                ammo = " " + "0 [Q]"; 
+        if (left)
+        {
+            if (ammo == "0")
+            {
+                ammo = " " + "0 [Q]";
             }
-            ammoText0.text = ammo; 
-            } else { 
-            if (ammo == "0") { 
-                ammo = "0 [E]" + " "; 
+            ammoText0.text = ammo;
+        }
+        else
+        {
+            if (ammo == "0")
+            {
+                ammo = "0 [E]" + " ";
             }
-            ammoText1.text = ammo.ToString(); 
+            ammoText1.text = ammo.ToString();
         }
     }
 
@@ -83,17 +90,19 @@ public class MainScript : MonoBehaviour
         allItems.SetActive(on);
 
         // displaying items
-        if (on) {
-            for(int i = 0; i < items.Length; i++) {
+        if (on)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
                 names[i].text = items[i].baseStats.name;
                 baseDamage[i].text = items[i].damageStats.basic.ToString();
                 maxAmmo[i].text = items[i].baseStats.maxAmmo.ToString();
                 fireRate[i].text = Mathf.Round(60 / items[i].baseStats.fireDelay).ToString();
-                if (items[i].damageStats.fire > 0) {elemDamage[i].text = items[i].damageStats.fire.ToString(); elemDamage[i].color = Color.red;}
-                else if (items[i].damageStats.acid > 0) {elemDamage[i].text = items[i].damageStats.acid.ToString(); elemDamage[i].color = Color.green;}
-                else if (items[i].damageStats.shock > 0) {elemDamage[i].text = items[i].damageStats.shock.ToString(); elemDamage[i].color = Color.yellow;}
-                else if (items[i].damageStats.ice > 0) {elemDamage[i].text = items[i].damageStats.ice.ToString(); elemDamage[i].color = Color.cyan;}
-                else {elemDamage[i].text = "--"; elemDamage[i].color = Color.white;}
+                if (items[i].damageStats.fire > 0) { elemDamage[i].text = items[i].damageStats.fire.ToString(); elemDamage[i].color = Color.red; }
+                else if (items[i].damageStats.acid > 0) { elemDamage[i].text = items[i].damageStats.acid.ToString(); elemDamage[i].color = Color.green; }
+                else if (items[i].damageStats.shock > 0) { elemDamage[i].text = items[i].damageStats.shock.ToString(); elemDamage[i].color = Color.yellow; }
+                else if (items[i].damageStats.ice > 0) { elemDamage[i].text = items[i].damageStats.ice.ToString(); elemDamage[i].color = Color.cyan; }
+                else { elemDamage[i].text = "--"; elemDamage[i].color = Color.white; }
             }
         }
     }
@@ -112,9 +121,9 @@ public class MainScript : MonoBehaviour
 
     public void UpdateTimer()
     {
-        int min = Mathf.FloorToInt(time/60);
-        string sec = (time - min*60).ToString();
-        if (sec.Length == 1) {sec = "0"+sec;}
+        int min = Mathf.FloorToInt(time / 60);
+        string sec = (time - min * 60).ToString();
+        if (sec.Length == 1) { sec = "0" + sec; }
         TimerText.text = $"{min}:{sec}";
     }
 
@@ -124,7 +133,23 @@ public class MainScript : MonoBehaviour
         time--;
         UpdateTimer();
         StartCoroutine(scoreTimer());
-        if (time <= 0) { SceneManager.LoadScene(0);}
+        if (time <= 0) { SceneManager.LoadScene(0); }
+    }
+    public float GetGameTimerElapsedTime()
+    {
+        return time/maxTime;
+    }
+    private void DecreaseScoreTimer(PlayerHitEvent evt)
+    {
+        // Ensure time doesn't go below zero
+        time = Mathf.Max(0, time - evt.dmg);
+        UpdateTimer(); // Update the UI after decreasing time
+
+        // If time runs out, trigger the end game
+        if (time <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     void Update()

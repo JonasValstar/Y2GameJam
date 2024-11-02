@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -109,7 +107,6 @@ public class MechMovement : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Persist between scenes
         }
         else
         {
@@ -292,12 +289,6 @@ public class MechMovement : MonoBehaviour
 
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        if (verticalInput > 0 || horizontalInput > 0) {
-            animator.SetBool("Walk", true);
-        } else {
-            animator.SetBool("Walk", false);
-        }
 
         //on slope
         if (OnSlope() && !m_ExitingSlope)

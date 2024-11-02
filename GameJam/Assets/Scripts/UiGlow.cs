@@ -5,25 +5,36 @@ using Random = UnityEngine.Random;
 public class UiGlow : MonoBehaviour
 {
     public Image image;
-    [SerializeField] MainScript ms;
+    private MainScript ms;
     float opacity = 0.5f;
     bool aAdd = true;
     float mod = 5;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        ms = FindObjectOfType<MainScript>();
+    }
+
     void Update()
     {
-        // updating opacity
-        if (aAdd) {
-            if (opacity >= 0.6) { aAdd = false; mod = Random.Range(4f, 6f); }
+        // Updating opacity as before
+        if (aAdd)
+        {
+            if (opacity >= 0.6f) { aAdd = false; mod = Random.Range(4f, 6f); }
             opacity += Time.deltaTime / mod;
-        } else {
-            if (opacity <= 0.3) { aAdd = true; mod = Random.Range(4f, 6f); }
+        }
+        else
+        {
+            if (opacity <= 0.3f) { aAdd = true; mod = Random.Range(4f, 6f); }
             opacity -= Time.deltaTime / mod;
         }
 
-        float hpFraction = (float)MainScript.time / (float)ms.maxTime;
-        Debug.Log(hpFraction);
-        image.color = new Color(Mathf.Clamp( 1 - hpFraction, 0, .5f)*2, Mathf.Clamp(hpFraction, 0, .5f)*2, 0, opacity);
+        // Access the game timer's elapsed time
+        float hpFraction = ms.GetGameTimerElapsedTime();
+        //Debug.Log(hpFraction);
+
+        // Update image color based on the hpFraction
+        image.color = new Color(Mathf.Clamp(hpFraction, 0, 0.5f) * 2, Mathf.Clamp(1 - hpFraction, 0, 0.5f) * 2, 0, opacity);
+
     }
 }

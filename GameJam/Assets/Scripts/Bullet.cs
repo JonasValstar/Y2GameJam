@@ -82,7 +82,8 @@ public class Bullet : MonoBehaviour
                 enemyScript.TakeDamage(damageStats);
             }
         }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
         {
             Destroy(gameObject);
         }

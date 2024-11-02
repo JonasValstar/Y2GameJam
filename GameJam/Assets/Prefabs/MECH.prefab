@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1347008691978129918
 Transform:
   m_ObjectHideFlags: 0
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260993844336139644}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -123,7 +123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4069457148653530362
 Transform:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295693989009430545}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6899497737149802120
 Transform:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996777976713167107}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7154411126805413724
 Transform:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2666748110016188849}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 2454211582469335761}
   - component: {fileID: 1220336665844385275}
   - component: {fileID: 7181765165977185437}
+  - component: {fileID: 6603956357328452926}
   m_Layer: 6
   m_Name: MECH
   m_TagString: Player
@@ -580,6 +581,7 @@ MonoBehaviour:
   slideSpeed: 12
   speedIncreaseMultiplier: 1
   slopeIncreaseMultiplier: 1
+  animator: {fileID: 0}
   groundDrag: 0.1
   jumpForce: 10
   jumpCooldown: 1
@@ -641,7 +643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon0: {fileID: 0}
   weapon1: {fileID: 0}
-  weaponContainer: {fileID: 0}
+  weaponContainer: {fileID: 760655791840144491}
   testingWeaponPrefabs:
   - {fileID: 0}
   - {fileID: 0}
@@ -668,6 +670,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4, y: 4.5, z: 2}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &6603956357328452926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282397866508843645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906cbfd24bf3f2148978d5d0aca115ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: {fileID: 11400000, guid: 114cbd4b8ebde324092ad63d3d7faf34, type: 2}
 --- !u!1 &4671549186365121676
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5287117317001018139
 Transform:
   m_ObjectHideFlags: 0
@@ -748,7 +763,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5135289095817078669}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1074,6 +1089,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4679901968611264074}
+  - component: {fileID: 5177717007666854680}
   m_Layer: 6
   m_Name: BottomPart
   m_TagString: Untagged
@@ -1102,6 +1118,27 @@ Transform:
   - {fileID: 7154411126805413724}
   m_Father: {fileID: 2855229821625928802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5177717007666854680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304593525237527772}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 2.5, z: 3}
+  m_Center: {x: 0, y: 0.88, z: 0.4}
 --- !u!1 &8331190418894300519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,10 +1427,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1526964690268444965, guid: 66251b3e8bb7e20409966cd9726dd6f4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3aa90fde97d62d648b3e8bba82ebc900, type: 2}
     - target: {fileID: 919132149155446097, guid: 66251b3e8bb7e20409966cd9726dd6f4,
         type: 3}
       propertyPath: m_Name
       value: MechBottom
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 66251b3e8bb7e20409966cd9726dd6f4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1484,10 +1531,20 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6002508473797582251, guid: 060db105a53f3494c9eeafa18c41823a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3aa90fde97d62d648b3e8bba82ebc900, type: 2}
     - target: {fileID: 919132149155446097, guid: 060db105a53f3494c9eeafa18c41823a,
         type: 3}
       propertyPath: m_Name
       value: MechTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 060db105a53f3494c9eeafa18c41823a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 060db105a53f3494c9eeafa18c41823a,
         type: 3}

@@ -1,115 +1,46 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class ChomperBehaviour : MonoBehaviour
+public class ChomperBehaviour : EnemyBehaviour
 {
     #region VARIABLES
-    [Header("References")]
-    private GameObject player;
-    private GameObject enemyTarget;
-    public Rigidbody rb;
-    public NavMeshAgent agent;
-    public AudioSource enemyAudioHurt;
-    public LayerMask whatIsGround, whatIsTarget;
-    public GameObject deathEffect;
-
-    [Header("Variables")]
-    public float m_MaxHealth;
-    public float m_CurrentHealth;
-
-    [SerializeField] private float m_ChaseSpeed;
-
     [Header("Attacking")]
-    public float timeBetweenAttacks;
-    private bool alreadyAttacked;
-    public BoxCollider chompAttack;
+    [SerializeField]
+    private BoxCollider chompAttack;
 
-    [Header("States")]
-    public EnemyState state;
-    [Space(5)]
-    public float attackRange;
-    public bool targetInAttackRange;
-
-    public enum EnemyState
-    {
-        chasing,
-        attacking
-    }
+    private bool hasCollided = false; // Track if a collision has occurred
     #endregion
 
-    private void Awake()
+    public override void AttackTarget()
     {
-        agent = GetComponent<NavMeshAgent>();
-
-        whatIsTarget = LayerMask.GetMask("Player");
-        player = GameObject.FindWithTag("Player").transform.root.gameObject;
-        enemyTarget = player;
-    }
-
-    private void Update()
-    {
-        //Check for attack range
-        targetInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsTarget);
-
-        if (!targetInAttackRange) ChaseTarget();
-        if (targetInAttackRange) AttackTarget();
-    }
-
-    #region STATE FUNCTIONS
-    private void ChaseTarget()
-    {
-        state = EnemyState.chasing;
-        agent.speed = m_ChaseSpeed;
-
-        transform.LookAt(enemyTarget.transform);
-        SetAgentDestination(enemyTarget.transform.position);
-    }
-
-    private void AttackTarget()
-    {
-        state = EnemyState.attacking;
-
-        Debug.Log("Attacking player");
-
-        //Make sure enemy doesn't move
-        SetAgentDestination(transform.position);
-
-        transform.LookAt(enemyTarget.transform);
+        base.AttackTarget();
 
         if (!alreadyAttacked)
         {
-            ///Attack code here
             chompAttack.enabled = true;
-
             alreadyAttacked = true;
+            hasCollided = false; // Reset collision for new attack
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-    private void ResetAttack()
+
+    public override void ResetAttack()
     {
         chompAttack.enabled = false;
         alreadyAttacked = false;
+        hasCollided = false;
     }
 
-    private void SetAgentDestination(Vector3 destination)
+    private void OnTriggerEnter(Collider other)
     {
-        if (agent.enabled && agent.isOnNavMesh)
+        // Trigger only if the collider is the player and has not already collided
+        if (other.CompareTag("Player") && !hasCollided)
         {
-            agent.SetDestination(destination);
+            hasCollided = true;
+            PlayerHitEvent evt = Events.PlayerHitEvent;
+            evt.dmg = dmg;
+            EventManager.Broadcast(evt);
+
+            Debug.Log("Player hit by Chomper, event broadcasted with dmg: " + dmg);
         }
     }
-    #endregion
-
-    #region GIZMOS
-    /// <summary>
-    /// Visualize attack and sight range.
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-    #endregion
 }

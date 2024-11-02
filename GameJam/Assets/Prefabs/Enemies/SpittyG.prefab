@@ -75,25 +75,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf820c5b42c259418df5036fd320cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ST_Player: {fileID: 11400000, guid: 114cbd4b8ebde324092ad63d3d7faf34, type: 2}
   rb: {fileID: 5626440227380581912}
-  agent: {fileID: 8612946014010002293}
   enemyAudioHurt: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 1024
-  whatIsTarget:
-    serializedVersion: 2
-    m_Bits: 64
   deathEffect: {fileID: 1091566395842728, guid: 400e06051701a8c4998087ae421728e3,
     type: 3}
   m_MaxHealth: 200
   m_CurrentHealth: 200
   m_ChaseSpeed: 6
   timeBetweenAttacks: 3
-  projectile: {fileID: 1772244383996334, guid: 294784d1e17ec8b45bed8a0790b0369b, type: 3}
   state: 0
   attackRange: 9
   targetInAttackRange: 0
+  projectile: {fileID: 1772244383996334, guid: 294784d1e17ec8b45bed8a0790b0369b, type: 3}
 --- !u!195 &8612946014010002293
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -172,6 +166,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3275069686957285697}
     m_Modifications:
+    - target: {fileID: 8719771546195959716, guid: 2dc74840be39b8e4b942cd9e73ded856,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b125c282fb6b9c24fb8770792843b0a3,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -351,11 +350,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8719771546195959716, guid: 2dc74840be39b8e4b942cd9e73ded856,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

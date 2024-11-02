@@ -124,9 +124,9 @@ MonoBehaviour:
     name: Ravager Gatling Gun
     maxAmmo: 100
     fireDelay: 0.05
-    bulletSpeed: 7
+    bulletSpeed: 12
   damageStats:
-    basic: 28
+    basic: 15
     fire: 0
     acid: 9
     shock: 0
