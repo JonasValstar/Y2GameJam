@@ -81,8 +81,6 @@ MonoBehaviour:
   enemyAudioHurt: {fileID: 0}
   deathEffect: {fileID: 1091566395842728, guid: 400e06051701a8c4998087ae421728e3,
     type: 3}
-  m_MaxHealth: 50
-  m_CurrentHealth: 50
   m_ChaseSpeed: 4
   dmg: 1
   timeBetweenAttacks: 1.5
@@ -212,7 +210,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 3a100d778b213264d915394b854958c2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3a100d778b213264d915394b854958c2,
         type: 3}
