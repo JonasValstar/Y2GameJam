@@ -5,8 +5,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     #region VARIABLES
     [Header("References")]
-    [SerializeField]
-    private SceneTypeObject ST_Player;
+    //[SerializeField]
+    //private SceneTypeObject ST_Player;
 
     protected GameObject player;
 
@@ -64,13 +64,13 @@ public class EnemyBehaviour : MonoBehaviour
     #endregion
 
     #region UNITY METHODS
-    private void Awake()
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
         whatIsTarget = LayerMask.GetMask("Player");
         whatIsGround = LayerMask.GetMask("Ground");
-        player = ST_Player.Objects[0];
+        player = GameObject.FindAnyObjectByType<MechMovement>().gameObject; //ST_Player.Objects[0];
         enemyTarget = player;
     }
 
