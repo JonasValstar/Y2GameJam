@@ -58,8 +58,8 @@ public class PlayerShooting : MonoBehaviour
     }
 
     void Start() {
-        weapon0.startAmmoUI(true);
-        weapon1.startAmmoUI(false);
+        weapon0.StartAmmoUI(true);
+        weapon1.StartAmmoUI(false);
     }
 
     public void switchWeapon(bool left, GameObject weapon)

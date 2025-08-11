@@ -5,13 +5,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
-
 public class MainScript : MonoBehaviour
 {
     [Header("Damage Pop-ups")]
     [SerializeField] Transform uiCanvas;
     [SerializeField] GameObject damageTextPrefab;
     [SerializeField] GameObject critTextPrefab;
+
+    [Header("Element Colours")]
+    public Color fireColor;
+    public Color acidColor;
+    public Color shockColor;
+    public Color iceColor;
 
     [Header("Ammo UI")]
     [SerializeField] TMP_Text ammoText0;
@@ -28,11 +33,11 @@ public class MainScript : MonoBehaviour
     [SerializeField] GameObject StoreOpenText;
     [SerializeField] Store storeScript;
     [SerializeField] GameObject allItems;
-    [SerializeField] List<TMP_Text> names = new List<TMP_Text>();
-    [SerializeField] List<TMP_Text> baseDamage = new List<TMP_Text>();
-    [SerializeField] List<TMP_Text> elemDamage = new List<TMP_Text>();
-    [SerializeField] List<TMP_Text> maxAmmo = new List<TMP_Text>();
-    [SerializeField] List<TMP_Text> fireRate = new List<TMP_Text>();
+    [SerializeField] List<TMP_Text> names = new();
+    [SerializeField] List<TMP_Text> baseDamage = new();
+    [SerializeField] List<TMP_Text> elemDamage = new();
+    [SerializeField] List<TMP_Text> maxAmmo = new();
+    [SerializeField] List<TMP_Text> fireRate = new();
     [HideInInspector] public bool inStore = false;
 
     void Start()
@@ -41,7 +46,7 @@ public class MainScript : MonoBehaviour
         ToggleStoreUI(false, empty);
 
         time = maxTime;
-        StartCoroutine(scoreTimer());
+        StartCoroutine(ScoreTimer());
 
         StoreOpenText.SetActive(false);
 
@@ -62,6 +67,18 @@ public class MainScript : MonoBehaviour
 
         // setting the damage things
         damage.GetComponent<TMP_Text>().text = amount.ToString();
+
+        // Element colour switch
+        Color textColour;
+        textColour = element.ToLower() switch
+        {
+            "fire" => fireColor,
+            "acid" => acidColor,
+            "shock" => shockColor,
+            "ice" => iceColor,
+            _ => Color.white,
+        };
+        damage.GetComponent<TMP_Text>().color = textColour;
     }
 
     public void UpdateAmmo(bool left, string ammo)
@@ -109,10 +126,10 @@ public class MainScript : MonoBehaviour
 
     public void StartStoreTimer()
     {
-        StartCoroutine(storeOpen());
+        StartCoroutine(StoreOpen());
     }
 
-    IEnumerator storeOpen()
+    IEnumerator StoreOpen()
     {
         StoreOpenText.SetActive(true);
         yield return new WaitForSeconds(3f);
@@ -127,17 +144,17 @@ public class MainScript : MonoBehaviour
         TimerText.text = $"{min}:{sec}";
     }
 
-    IEnumerator scoreTimer()
+    IEnumerator ScoreTimer()
     {
         yield return new WaitForSeconds(1f);
         time--;
         UpdateTimer();
-        StartCoroutine(scoreTimer());
+        StartCoroutine(ScoreTimer());
         if (time <= 0) { SceneManager.LoadScene(0); }
     }
     public float GetGameTimerElapsedTime()
     {
-        return time/maxTime;
+        return time / maxTime;
     }
     private void DecreaseScoreTimer(PlayerHitEvent evt)
     {
@@ -154,6 +171,6 @@ public class MainScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) { SceneManager.LoadScene(0); };
+        if (Input.GetKeyDown(KeyCode.Escape)) { SceneManager.LoadScene(0); }
     }
 }

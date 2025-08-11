@@ -21,8 +21,8 @@ public class Bullet : MonoBehaviour
     public bool explodeOnTouch = true;
 
     int collisions;
-    PhysicMaterial physics_mat;
-    [HideInInspector] public RangedWeapon.statsDamage damageStats;
+    PhysicsMaterial physics_mat;
+    [HideInInspector] public RangedWeapon.StatsDamage damageStats;
 
     private void Awake()
     {
@@ -97,10 +97,10 @@ public class Bullet : MonoBehaviour
     private void Setup()
     {
         //Create a new Physics material
-        physics_mat = new PhysicMaterial();
+        physics_mat = new PhysicsMaterial();
         physics_mat.bounciness = bounciness;
-        physics_mat.frictionCombine = PhysicMaterialCombine.Minimum;
-        physics_mat.bounceCombine = PhysicMaterialCombine.Maximum;
+        physics_mat.frictionCombine = PhysicsMaterialCombine.Minimum;
+        physics_mat.bounceCombine = PhysicsMaterialCombine.Maximum;
         //Assign material to collider
         GetComponent<SphereCollider>().material = physics_mat;
         rb.GetComponent<Rigidbody>();

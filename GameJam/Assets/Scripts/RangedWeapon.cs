@@ -14,8 +14,8 @@ public class RangedWeapon : MonoBehaviour
     bool reloading = false;
 
     // stats
-    public statsBase baseStats;
-    public statsDamage damageStats;
+    public StatsBase baseStats;
+    public StatsDamage damageStats;
 
     // components
     [SerializeField] Transform firePoint;
@@ -25,7 +25,6 @@ public class RangedWeapon : MonoBehaviour
     [SerializeField] AudioClip reloadSound;
 
     /* --- functions --- */
-
     void Awake()
     {
         // setting the ammo to max
@@ -103,7 +102,7 @@ public class RangedWeapon : MonoBehaviour
         reloading = false;
     }
 
-    public void startAmmoUI(bool left)
+    public void StartAmmoUI(bool left)
     {
         ms.UpdateAmmo(left, currentAmmo.ToString());
     }
@@ -112,7 +111,7 @@ public class RangedWeapon : MonoBehaviour
 
     // struct containing the basic stats
     [Serializable]
-    public struct statsBase
+    public struct StatsBase
     {
         public string name;
         public int maxAmmo;
@@ -122,7 +121,7 @@ public class RangedWeapon : MonoBehaviour
 
     // struct containing the stats related to damage dealt
     [Serializable]
-    public struct statsDamage
+    public struct StatsDamage
     {
         public int basic;
         public int fire;

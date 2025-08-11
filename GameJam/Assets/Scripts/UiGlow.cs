@@ -14,7 +14,7 @@ public class UiGlow : MonoBehaviour
 
     private void Start()
     {
-        ms = FindObjectOfType<MainScript>();
+        ms = FindAnyObjectByType<MainScript>();
 
         // Start with green glow
         float initialHpFraction = 1f;
