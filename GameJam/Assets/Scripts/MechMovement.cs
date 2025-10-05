@@ -20,8 +20,6 @@ public class MechMovement : MonoBehaviour
     public float speedIncreaseMultiplier;
     public float slopeIncreaseMultiplier;
 
-    [SerializeField] Animator animator;
-
     public float groundDrag;
 
     [Header("Jumping")]
@@ -51,7 +49,8 @@ public class MechMovement : MonoBehaviour
     private bool m_ExitingSlope;
 
     [Header("Animation")]
-    protected Animator m_Animator;
+    [SerializeField] protected Animator m_AnimatorTop;
+    [SerializeField] protected Animator m_AnimatorBottom;
     private float m_DesiredAnimationSpeed;
     private float m_CurrentAnimationSpeed;
     [Range(0.001f, 5f)][SerializeField] private float m_TransitionSpeed = 0.1f;
@@ -100,7 +99,6 @@ public class MechMovement : MonoBehaviour
 
     private void Awake()
     {
-        m_Animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
 
         // Ensure that only one instance of the singleton exists
@@ -344,7 +342,7 @@ public class MechMovement : MonoBehaviour
 
     private void AdjustAnimationSpeed()
     {
-        if (m_Animator != null)
+        if (m_AnimatorBottom != null)
         {
             if (horizontalInput == 0 && verticalInput == 0)
             {
@@ -356,7 +354,7 @@ public class MechMovement : MonoBehaviour
             }
 
             m_CurrentAnimationSpeed = Mathf.Lerp(m_CurrentAnimationSpeed, m_DesiredAnimationSpeed, m_TransitionSpeed);
-            m_Animator.speed = m_CurrentAnimationSpeed;
+            m_AnimatorBottom.speed = m_CurrentAnimationSpeed;
         }
     }
 
