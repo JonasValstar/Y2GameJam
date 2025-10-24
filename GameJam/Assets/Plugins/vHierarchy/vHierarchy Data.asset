@@ -55,4 +55,6 @@ MonoBehaviour:
           isIconRecursive: 0
           isColorRecursive: 0
   bookmarks: []
-  bookmarkedScenePaths: []
+  bookmarkedScenePaths:
+  - Assets/Scenes/MainMenu.unity
+  - Assets/Scenes/ArenaMain.unity
